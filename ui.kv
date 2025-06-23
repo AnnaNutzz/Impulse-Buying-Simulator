@@ -1,0 +1,462 @@
+#:kivy 2.1.0
+
+#:import dp kivy.metrics.dp
+
+# Define colors and styles to be used throughout the app
+#:set dark_bg (33/255, 33/255, 33/255, 1)
+#:set card_bg (55/255, 55/255, 55/255, 1)
+#:set accent_blue (0, 150/255, 255/255, 1)
+#:set text_light (0.9, 0.9, 0.9, 1)
+#:set text_dark (0.1, 0.1, 0.1, 1)
+
+<CButton@Button>:
+    background_color: accent_blue
+    background_normal: ''
+    background_down: ''
+    color: text_dark
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(8)]
+
+<BottomNav@BoxLayout>:
+    size_hint_y: None
+    height: dp(50)
+    padding: dp(5)
+    canvas.before:
+        Color:
+            rgba: card_bg
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Button:
+        background_color: (0,0,0,0)
+        background_normal: ''
+        background_down: ''
+        on_release: app.root.current = 'home'
+        Image:
+            source: 'assets/home.png'
+            size_hint: None, None
+            size: dp(30), dp(30)
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            allow_stretch: True
+            keep_ratio: True
+    Button:
+        background_color: (0,0,0,0)
+        background_normal: ''
+        background_down: ''
+        on_release: app.root.current = 'profile'
+        Image:
+            source: 'assets/profile.png'
+            size_hint: None, None
+            size: dp(30), dp(30)
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            allow_stretch: True
+            keep_ratio: True
+    Button:
+        background_color: (0,0,0,0)
+        background_normal: ''
+        background_down: ''
+        on_release: app.root.current = 'cart'
+        Image:
+            source: 'assets/cart.png'
+            size_hint: None, None
+            size: dp(30), dp(30)
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            allow_stretch: True
+            keep_ratio: True
+    Button:
+        background_color: (0,0,0,0)
+        background_normal: ''
+        background_down: ''
+        on_release: app.root.current = 'deals'
+        Image:
+            source: 'assets/star.png'
+            size_hint: None, None
+            size: dp(30), dp(30)
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            allow_stretch: True
+            keep_ratio: True
+    Button:
+        background_color: (0,0,0,0)
+        background_normal: ''
+        background_down: ''
+        on_release: app.logout()
+        Image:
+            source: 'assets/logout.png'
+            size_hint: None, None
+            size: dp(30), dp(30)
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            allow_stretch: True
+            keep_ratio: True
+
+<ProductCard@BoxLayout>:
+    image: ''
+    title: ''
+    description: ''
+    price: ''
+    callback: lambda: None
+    orientation: 'vertical'
+    size_hint_y: None
+    height: dp(240)
+    padding: dp(10)
+    spacing: dp(10)
+    canvas.before:
+        Color:
+            rgba: card_bg
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(10)]
+    
+    ScrollView:
+        size_hint_y: 0.5
+        do_scroll_x: True
+        do_scroll_y: False
+        bar_width: 0
+        GridLayout:
+            id: image_grid
+            rows: 1
+            size_hint_x: None
+            width: self.minimum_width
+            spacing: dp(5)
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: 0.5
+        spacing: dp(4)
+        Label:
+            text: root.title
+            font_size: '16sp'
+            bold: True
+            color: text_light
+            halign: 'left'
+            valign: 'top'
+            text_size: self.width, None
+        Label:
+            text: root.description
+            font_size: '12sp'
+            color: text_light
+            halign: 'left'
+            valign: 'top'
+            text_size: self.width, None
+        BoxLayout:
+            padding: dp(5), 0, 0, 0
+            spacing: dp(10)
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.6
+                Label:
+                    text: root.price
+                    color: accent_blue
+                    bold: True
+                    halign: 'left'
+                    text_size: self.width, None
+                Label:
+                    text: root.quantity_in_cart
+                    color: text_light
+                    halign: 'left'
+                    text_size: self.width, None
+            CButton:
+                text: "ADD TO CART"
+                on_release: root.callback()
+                size_hint_x: 0.4
+
+<CartCard@BoxLayout>:
+    image: ''
+    title: ''
+    price: ''
+    size_hint_y: None
+    height: dp(80)
+    padding: dp(10)
+    spacing: dp(10)
+    Image:
+        source: root.image
+        size_hint: None, None
+        size: dp(60), dp(60)
+        allow_stretch: True
+        keep_ratio: True
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.title
+            halign: 'left'
+            valign: 'middle'
+            text_size: self.width, None
+        Label:
+            text: root.price
+            halign: 'left'
+            valign: 'middle'
+            text_size: self.width, None
+            color: accent_blue
+    Button:
+        text: "Delete"
+        size_hint_x: 0.3
+        on_release: root.delete_callback()
+        background_color: (1, 0.2, 0.2, 1)
+
+ScreenManager:
+    id: screen_manager
+    LoginScreen:
+        name: 'login'
+    HomeScreen:
+        name: 'home'
+    CartScreen:
+        name: 'cart'
+    ProfileScreen:
+        name: 'profile'
+    DealScreen:
+        name: 'deals'
+
+<LoginScreen>:
+    canvas.before:
+        Color:
+            rgba: dark_bg
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(40)
+        spacing: dp(20)
+        Widget:
+            size_hint_y: 0.2
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(30)
+            spacing: dp(20)
+            size_hint: 1, None
+            height: self.minimum_height
+            center_x: self.parent.center_x
+
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]
+            
+            Image:
+                source: 'assets/icon.jpg'
+                size_hint_y: None
+                height: dp(80)
+                allow_stretch: True
+                keep_ratio: True
+            
+            TextInput:
+                id: nickname_input
+                hint_text: "Name"
+                multiline: False
+                size_hint_y: None
+                height: dp(45)
+                background_color: (0,0,0,0)
+                foreground_color: text_dark
+                font_size: '18sp'
+                canvas.after:
+                    Color:
+                        rgba: text_dark
+                    Line:
+                        rectangle: (self.x, self.y, self.width, dp(1))
+
+            CButton:
+                text: "Sign In"
+                on_release: root.login_user()
+                size_hint_y: None
+                height: dp(50)
+                background_color: (0.5, 0.5, 0.5, 1)
+                color: text_light
+                font_size: '18sp'
+        
+        Widget:
+            size_hint_y: 0.3
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: dark_bg
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            canvas.before:
+                Color:
+                    rgba: card_bg
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: balance_label
+                text: "BALANCE: $0"
+                font_size: '18sp'
+                bold: True
+
+        RecycleView:
+            id: product_list
+            data: root.products_data
+            viewclass: 'ProductCard'
+            RecycleBoxLayout:
+                default_size: None, dp(240)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                spacing: dp(10)
+                padding: dp(10)
+        
+        CButton:
+            text: "BUY NOW"
+            size_hint_y: None
+            height: dp(60)
+            bold: True
+            font_size: '20sp'
+            on_release: app.buy_now()
+        BottomNav:
+
+<CartScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: dark_bg
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar with Subtotal
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            canvas.before:
+                Color:
+                    rgba: accent_blue
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(10)]
+            Label:
+                text: f"SUB TOTAL: ${root.subtotal}"
+                bold: True
+
+        # Cart Items List
+        RecycleView:
+            data: root.cart_data
+            viewclass: 'CartCard'
+            RecycleBoxLayout:
+                default_size: None, dp(80)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                spacing: dp(10)
+                padding: dp(10)
+
+        # Buy Now Button
+        CButton:
+            text: "BUY NOW"
+            size_hint_y: None
+            height: dp(60)
+            bold: True
+            font_size: '20sp'
+            on_release: app.buy_now()
+
+        # Bottom Navigation
+        BottomNav:
+
+<ProfileScreen>:
+    canvas.before:
+        Color:
+            rgba: dark_bg
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+        
+        Image:
+            source: 'assets/profile.png'
+            size_hint_y: 0.4
+        
+        Label:
+            text: app.nickname
+            font_size: '24sp'
+            bold: True
+            size_hint_y: 0.1
+        
+        BoxLayout:
+            size_hint_y: 0.2
+            padding: dp(20)
+            canvas.before:
+                Color:
+                    rgba: (150/255, 150/255, 200/255, 1)
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(15)]
+            Label:
+                id: profile_balance
+                text: f"Bank Balance:\n${app.balance}"
+                font_size: '20sp'
+                bold: True
+                halign: 'center'
+        
+        Widget:
+            size_hint_y: 0.3
+            
+        BottomNav:
+
+<DealScreen>:
+    canvas.before:
+        Color:
+            rgba: dark_bg
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+
+        Image:
+            source: root.deal_img
+            size_hint_y: 0.5
+        
+        Label:
+            text: root.deal_title
+            font_size: '22sp'
+            bold: True
+            size_hint_y: 0.1
+
+        Label:
+            text: root.deal_price
+            font_size: '18sp'
+            color: accent_blue
+            size_hint_y: 0.1
+
+        CButton:
+            text: "ADD TO CART"
+            size_hint_y: 0.1
+            on_release: app.add_deal_to_cart()
+
+        Widget:
+            size_hint_y: 0.2
+            
+        BottomNav:

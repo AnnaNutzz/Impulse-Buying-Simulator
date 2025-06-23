@@ -1,0 +1,79 @@
+[
+  {
+    "title": "Cat on a Laptop",
+    "description": "A productivity companion that walks on your keyboard and sleeps on your deadlines.",
+    "category": "Pets / Tech",
+    "images": ["assets/cat_laptop.png","assets/cat_laptop1.png"],
+    "price": 1500
+  },
+  {
+    "title": "Certificate of Existence",
+    "description": "Need to prove you're real? This official-looking certificate has your back.",
+    "category": "Paper Goods / Philosophy",
+    "images": ["assets/certificate.png"],
+    "price": 500
+  },
+  {
+    "title": "Box of Emotions",
+    "description": "A mystery box filled with unpredictable feelings. Shake it and feel... something.",
+    "category": "Wellness / Mystery",
+    "images": ["assets/emotions_box.png"],
+    "price": 800
+  },
+  {
+    "title": "Mystery Juice",
+    "description": "Unknown flavor. Unknown effects. All we know is it's juicy.",
+    "category": "Beverages / Chaos",
+    "images": ["assets/mystery_juice.png"],
+    "price": 300
+  },
+  {
+    "title": "NFT of Sadness",
+    "description": "A digital collectible representing eternal melancholy. Comes with no utility.",
+    "category": "Digital Goods / Art",
+    "images": ["assets/nft_of_sadness.png"],
+    "price": 9999
+  },
+  {
+    "title": "Nothing Box",
+    "description": "It's a box. With nothing in it. Just your imagination.",
+    "category": "Novelty / Zen",
+    "images": ["assets/nothing_box.png","assets/nothing_box1.png","assets/nothing_box2.png"],
+    "price": 100
+  },
+  {
+    "title": "Pet Rock (Deluxe Edition)",
+    "description": "The low-maintenance pet of your dreams, now with a luxury carrying pouch.",
+    "category": "Pets / Décor",
+    "images": ["assets/pet_rock.png","assets/pet_rock1.png"],
+    "price": 750
+  },
+  {
+    "title": "Premium Air",
+    "description": "Artisanal oxygen harvested by monks from the upper Himalayas (probably).",
+    "category": "Essentials / Luxury",
+    "images": ["assets/prem_air.png"],
+    "price": 2000
+  },
+  {
+    "title": "Scream Plant",
+    "description": "Screams softly when ignored for more than 24 hours. Built-in guilt-tripping included.",
+    "category": "Home / Plants / Mental Health",
+    "images": ["assets/scream_plant.png"],
+    "price": 1200
+  },
+  {
+  "title": "Invisible Hat",
+  "description": "Fashion-forward. Physics-defying. Literally nothing to see here.",
+  "category": "Apparel / Conceptual",
+  "images": ["assets/invisi_hat.png"],
+  "price": 3000
+  },
+  {
+    "title": "Time Machine Instruction Manual",
+    "description": "Step-by-step guide to operating a time machine you definitely don't have.",
+    "category": "Books / Sci-Fi / Lies",
+    "images": ["assets/tm_manual.png"],
+    "price": 50
+  }
+]
